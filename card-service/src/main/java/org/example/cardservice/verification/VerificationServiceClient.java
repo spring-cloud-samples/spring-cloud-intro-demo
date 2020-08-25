@@ -3,7 +3,7 @@ package org.example.cardservice.verification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -19,15 +19,16 @@ public class VerificationServiceClient {
 			.getLogger(VerificationServiceClient.class);
 	private final RestTemplate restTemplate;
 
-	VerificationServiceClient(@Qualifier("loadBalancedRestTemplate") RestTemplate restTemplate) {
+	VerificationServiceClient(@LoadBalanced RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
 	}
 
 	public ResponseEntity<VerificationResult> verify(VerificationApplication verificationApplication) {
-		LOGGER.debug("Sending verification request for application placed by user {}", verificationApplication.getUserId());
+		LOGGER.debug("Sending verification request for application placed by user {}", verificationApplication
+				.getUserId());
 		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder
 				.fromHttpUrl("http://fraud-verifier/cards/verify")
-						.queryParam("uuid", verificationApplication.getUserId())
+				.queryParam("uuid", verificationApplication.getUserId())
 				.queryParam("cardCapacity", verificationApplication.getCardCapacity());
 		return restTemplate.getForEntity(uriComponentsBuilder.toUriString(),
 				VerificationResult.class);
