@@ -18,7 +18,6 @@ public class RestTemplateConfig {
 
 	@Bean
 	@LoadBalanced
-	@Qualifier("loadBalancedRestTemplate")
 	RestTemplate loadBalancedRestTemplate() {
 		return new RestTemplate();
 	}
