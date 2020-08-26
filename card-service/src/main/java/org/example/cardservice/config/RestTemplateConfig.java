@@ -23,7 +23,7 @@ public class RestTemplateConfig {
 	}
 
 	@Bean
-	@Qualifier("webClient")
+	@Qualifier("restTemplate")
 	RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
