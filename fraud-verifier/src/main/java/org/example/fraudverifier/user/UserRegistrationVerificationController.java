@@ -31,4 +31,9 @@ class UserRegistrationVerificationController {
 		return ResponseEntity.ok(verificationResult);
 	}
 
+	@GetMapping("/test")
+	ResponseEntity<String> test() {
+		return ResponseEntity.ok("test");
+	}
+
 }
