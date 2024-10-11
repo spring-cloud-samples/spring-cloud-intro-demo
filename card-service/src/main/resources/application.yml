@@ -1,4 +1,9 @@
 spring:
+  cloud:
+    loadbalancer:
+      stats:
+        micrometer:
+          enabled: true
   application:
     profiles:
       active: production
@@ -7,7 +12,7 @@ spring:
     import: optional:configserver:http://localhost:9888
 logging:
   level:
-    org.springframework: info
+    org.springframework: debug
 server:
   port: 9080
 management:
