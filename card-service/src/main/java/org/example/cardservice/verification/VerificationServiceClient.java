@@ -32,7 +32,5 @@ public class VerificationServiceClient {
 				.queryParam("cardCapacity", verificationApplication.getCardCapacity());
 		return restClient.get().uri(uriComponentsBuilder.toUriString())
 				.retrieve().toEntity(VerificationResult.class);
-//		return restClient.getForEntity(uriComponentsBuilder.toUriString(),
-//				VerificationResult.class);
 	}
 }
