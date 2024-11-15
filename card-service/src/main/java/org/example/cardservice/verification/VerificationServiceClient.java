@@ -1,16 +1,10 @@
 package org.example.cardservice.verification;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClient;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * @author Olga Maciaszek-Sharma
@@ -29,11 +23,20 @@ public class VerificationServiceClient {
 		return webClient.get()
 				.uri(uriBuilder -> uriBuilder
 						.scheme("http")
-						.host("fraud-verifier").path("/cards/verify")
+						.host("fraud-verifier").path("/cards/test")
 						.queryParam("uuid", verificationApplication.getUserId())
 						.queryParam("cardCapacity", verificationApplication
 								.getCardCapacity())
 						.build())
 				.retrieve().bodyToMono(VerificationResult.class);
+	}
+
+	public Mono<String> test() {
+		WebClient webClient = webClientBuilder.build();
+		return webClient.get()
+				.uri("http://fraud-verifier/cards/test/{testSegment}",
+						"test1")
+				.retrieve().bodyToMono(String.class);
+
 	}
 }
