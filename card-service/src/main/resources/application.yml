@@ -5,9 +5,9 @@ spring:
         micrometer:
           enabled: true
   application:
-    profiles:
-      active: production
     name: card-service
+  profiles:
+    active: production
   config:
     import: optional:configserver:http://localhost:9888
 logging:
