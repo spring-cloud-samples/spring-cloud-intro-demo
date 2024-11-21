@@ -2,12 +2,11 @@ package org.example.cardservice.user;
 
 import org.example.cardservice.application.CardApplicationDto;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestClient;
 
 /**
  * @author Olga Maciaszek-Sharma
@@ -15,13 +14,13 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class UserServiceClient {
 
-	private final RestTemplate restTemplate;
+	private final RestClient restClient;
 	private final DiscoveryClient discoveryClient;
 
 
-	UserServiceClient(@Qualifier("restTemplate") RestTemplate restTemplate,
+	UserServiceClient(RestClient.Builder restClientBuilder,
 			DiscoveryClient discoveryClient) {
-		this.restTemplate = restTemplate;
+		this.restClient = restClientBuilder.build();
 		this.discoveryClient = discoveryClient;
 	}
 
@@ -29,9 +28,10 @@ public class UserServiceClient {
 		ServiceInstance instance = discoveryClient.getInstances("proxy")
 				.stream().findAny()
 				.orElseThrow(() -> new IllegalStateException("Proxy unavailable"));
-		return restTemplate.postForEntity(instance.getUri().toString()
-						+ "/user-service/registration",
-				userDto,
-				User.class);
+		return restClient.post().uri(instance.getUri().toString()
+						+ "/user-service/registration")
+				.body(userDto)
+				.retrieve()
+				.toEntity(User.class);
 	}
 }
