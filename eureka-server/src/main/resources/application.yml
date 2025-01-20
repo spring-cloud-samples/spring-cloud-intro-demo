@@ -3,6 +3,9 @@ server:
 
 
 eureka:
+  server:
+    metrics:
+      enabled: false
   client:
     registerWithEureka: false
     fetchRegistry: false
