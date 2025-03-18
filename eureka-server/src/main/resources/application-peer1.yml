@@ -4,8 +4,10 @@ server:
 
 eureka:
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: http://localhost:8762/eureka/
 management:
   endpoints:
     web:
@@ -14,5 +16,8 @@ management:
           - metrics
           - prometheus
 spring:
+  cloud:
+    refresh:
+      enabled: true
   application:
     name: eureka-server
