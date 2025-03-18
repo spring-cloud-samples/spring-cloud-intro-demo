@@ -6,6 +6,9 @@ eureka:
   client:
     registerWithEureka: false
     fetchRegistry: false
+  server:
+    metrics:
+      enabled: true
 management:
   endpoints:
     web:
