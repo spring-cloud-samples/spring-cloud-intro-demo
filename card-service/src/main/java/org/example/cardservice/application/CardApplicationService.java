@@ -2,8 +2,6 @@ package org.example.cardservice.application;
 
 import java.util.UUID;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.example.cardservice.user.User;
 import org.example.cardservice.user.UserServiceClient;
 import org.example.cardservice.verification.VerificationApplication;
@@ -38,10 +36,10 @@ class CardApplicationService {
 
 	private Mono<ApplicationResult> verifyApplication(CardApplication application) {
 		return verificationServiceClient  // uses @LoadBalanced WebClient.Builder
-						.verify(new VerificationApplication(application.getUuid(),
-								application.getCardCapacity()))
-						.map(verificationResult -> updateApplication(verificationResult,
-								application));
+				.verify(new VerificationApplication(application.getUuid(),
+						application.getCardCapacity()))
+				.map(verificationResult -> updateApplication(verificationResult,
+						application));
 	}
 
 	private ApplicationResult updateApplication(VerificationResult verificationResult,
