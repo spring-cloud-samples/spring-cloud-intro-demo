@@ -9,12 +9,12 @@ import org.springframework.context.annotation.Bean;
  */
 public class CustomLoadBalancerConfiguration {
 
-	@Bean
-	public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
-			ConfigurableApplicationContext context) {
-		return ServiceInstanceListSupplier.builder()
-				.withBlockingDiscoveryClient()
-				.withZonePreference()
-				.build(context);
-	}
+//	@Bean
+//	public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
+//			ConfigurableApplicationContext context) {
+//		return ServiceInstanceListSupplier.builder()
+//				.withDiscoveryClient()
+//				.withZonePreference()
+//				.build(context);
+//	}
 }

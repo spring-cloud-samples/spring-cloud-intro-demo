@@ -1,6 +1,10 @@
 spring:
   cloud:
     loadbalancer:
+      configurations:
+        api-version
+      api-version:
+        header: X-Version
       stats:
         micrometer:
           enabled: true

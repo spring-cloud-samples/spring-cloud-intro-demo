@@ -4,7 +4,7 @@ import org.example.excluded.CustomLoadBalancerConfiguration;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.web.reactive.function.client.WebClientCustomizer;
+import org.springframework.boot.webclient.WebClientCustomizer;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClient;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +22,8 @@ public class WebClientConfig {
 	@LoadBalanced
 	WebClient.Builder loadBalancedWebClientBuilder(ObjectProvider<WebClientCustomizer> customizerProvider) {
 		WebClient.Builder builder = WebClient.builder();
-		customizerProvider.orderedStream().forEach((customizer) -> customizer.customize(builder));
+		customizerProvider.orderedStream()
+				.forEach((customizer) -> customizer.customize(builder));
 		return builder;
 	}
 
