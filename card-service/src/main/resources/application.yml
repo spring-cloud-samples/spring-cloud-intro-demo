@@ -4,6 +4,8 @@ spring:
       configurations:
         api-version
       api-version:
+#        fallbackToAvailableInstances: true
+#        fallback-to-available-instances: true
         header: X-Version
       stats:
         micrometer:
